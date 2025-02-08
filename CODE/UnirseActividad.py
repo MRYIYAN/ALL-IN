@@ -1,51 +1,31 @@
-#-------------------------------------------------------------------------------#
-# Imports necesarios para la funcionalidad de la ventana Home
-#-------------------------------------------------------------------------------#
 import tkinter as tk
-import subprocess  # Para abrir otros archivos Python
-from tkinter import messagebox
-from PIL import Image, ImageTk  # Para cargar y mostrar imágenes
-import webbrowser  # Para abrir URLs en el navegador
-import subprocess  # Para abrir otros archivos Python
+import subprocess
+from PIL import Image, ImageTk
+import webbrowser
 
-#-------------------------------------------------------------------------------#
-# Clase principal para la ventana Home
-#-------------------------------------------------------------------------------#
-class HomeApp(tk.Tk):
+class UnirseActividad(tk.Tk):
     def __init__(self):
         super().__init__()
-        #------------------------------------------------- ------------------------------#
         # Configuración de la ventana
-        #-------------------------------------------------------------------------------#
-        self.title("ALL-IN V1.0 - Inicio")
-        self.geometry("640x600")  
+        self.title("ALL-IN V1.0 - Unirse a Actividad")
+        self.geometry("640x600")
         self.configure(bg="#f0f0f0")
-        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")  
-        
-        #-------------------------------------------------------------------------------#
+        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")
+
         # Barra de navegación (navbar)
-        #-------------------------------------------------------------------------------#
         self.navbar = tk.Frame(self, bg="#333333")
         self.navbar.pack(fill="x", side="top", padx=0, pady=0)
         self.crear_navbar()
 
-        #-------------------------------------------------------------------------------#
-        # Encabezado
-        #-------------------------------------------------------------------------------#
-        encabezado = tk.Label(self, text="TUS ACTIVIDADES", font=("Arial", 16, "bold"), bg="#f0f0f0", fg="#333333")
+        # Título de la ventana
+        encabezado = tk.Label(self, text="UNIRSE A UNA ACTIVIDAD", font=("Arial", 16, "bold"), bg="#f0f0f0", fg="#333333")
         encabezado.pack(pady=(10, 5))
-        
-        #-------------------------------------------------------------------------------#
-        # Área de actividades
-        #-------------------------------------------------------------------------------#
+
+        # Área de actividades (puedes agregar botones o listas de actividades aquí)
         self.area_actividades = tk.Frame(self, bg="#f0f0f0")
         self.area_actividades.pack(pady=10)
-        self.actividades = ["Actividad 1", "Actividad 2", "Actividad 3", "Actividad 4", "Actividad 5", "Actividad 6"]
-        self.mostrar_actividades()
 
-        #-------------------------------------------------------------------------------#
-        # Pie de página 
-        #-------------------------------------------------------------------------------#
+        # Pie de página (footer)
         self.footer = tk.Frame(self, bg="#FFA500", height=50)
         self.footer.pack(fill="x", side="bottom", pady=0)
 
@@ -59,9 +39,7 @@ class HomeApp(tk.Tk):
         enlace_web.pack(side="right", padx=10, pady=5)
         enlace_web.bind("<Button-1>", lambda e: self.abrir_pagina("https://tupagina.com"))
 
-    #-------------------------------------------------------------------------------#
-    # Método para crear la barra de navegación 
-    #-------------------------------------------------------------------------------#
+    # Método para crear la barra de navegación
     def crear_navbar(self):
         imagen_allin = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.png", (50, 50))
         if imagen_allin:
@@ -74,16 +52,12 @@ class HomeApp(tk.Tk):
         self.crear_boton("Mapa", 4)
         self.crear_boton("Mensajes", 5)
 
-    #-------------------------------------------------------------------------------#
     # Método para crear botones de la navbar
-    #-------------------------------------------------------------------------------#
     def crear_boton(self, texto, columna):
         boton = tk.Button(self.navbar, text=texto, font=("Arial", 12), fg="white", bg="#333333", relief="flat", command=lambda: self.al_hacer_clic(texto))
         boton.grid(row=0, column=columna, padx=20, pady=10)
 
-    #-------------------------------------------------------------------------------#
     # Método para crear botones desplegables en la navbar
-    #-------------------------------------------------------------------------------#
     def crear_boton_desplegable(self, texto, columna, opciones):
         desplegable = tk.Menubutton(self.navbar, text=texto, font=("Arial", 12), fg="white", bg="#333333", relief="flat")
         menu = tk.Menu(desplegable, tearoff=0, bg="#333333", fg="white")
@@ -92,9 +66,7 @@ class HomeApp(tk.Tk):
         desplegable.config(menu=menu)
         desplegable.grid(row=0, column=columna, padx=20, pady=10)
 
-    #-------------------------------------------------------------------------------#
     # Método para manejar eventos de los botones
-    #-------------------------------------------------------------------------------#
     def al_hacer_clic(self, texto_boton):
         rutas = {
             "Inicio": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py",
@@ -104,30 +76,19 @@ class HomeApp(tk.Tk):
             "Mapa": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mapa.py",
             "Mensajes": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mensajes.py"
         }
-        
+
         if texto_boton in rutas:
             # Llamar a la función cerrar_y_abrir para cerrar la ventana actual y abrir la nueva
             self.cerrar_y_abrir(rutas[texto_boton])
         else:
-            messagebox.showinfo(texto_boton, f"Has hecho clic en '{texto_boton}'.")
+            tk.messagebox.showinfo(texto_boton, f"Has hecho clic en '{texto_boton}'.")
 
-    #-------------------------------------------------------------------------------#
-    # Método para cerrar
-    #-------------------------------------------------------------------------------#
+    # Método para cerrar y abrir otra ventana
     def cerrar_y_abrir(self, ruta):
         self.destroy()  # Cierra la ventana actual
         subprocess.Popen(["python", ruta], shell=True)  # Abre el nuevo archivo
 
-    #-------------------------------------------------------------------------------#
-    # Método para mostrar la lista de actividades
-    #-------------------------------------------------------------------------------#
-    def mostrar_actividades(self):
-        for actividad in self.actividades:
-            tk.Label(self.area_actividades, text=actividad, font=("Arial", 12), bg="#f0f0f0", fg="#333333").pack(pady=3)
-
-    #-------------------------------------------------------------------------------#
     # Método para cargar los iconos de redes sociales
-    #-------------------------------------------------------------------------------#
     def cargar_iconos_redes(self):
         iconos = ["facebook.png", "twitter.png", "instagram.png"]
         for icono in iconos:
@@ -137,15 +98,11 @@ class HomeApp(tk.Tk):
                 etiqueta.image = img
                 etiqueta.pack(side="left", padx=5)
 
-    #-------------------------------------------------------------------------------#
     # Método para abrir una página web en el navegador
-    #-------------------------------------------------------------------------------#
     def abrir_pagina(self, url):
         webbrowser.open(url)
 
-    #-------------------------------------------------------------------------------#
     # Método para cargar imágenes con manejo de errores
-    #-------------------------------------------------------------------------------#
     def cargar_imagen(self, ruta, tamaño):
         try:
             imagen = Image.open(ruta)
@@ -156,9 +113,6 @@ class HomeApp(tk.Tk):
             print(f"Error cargando la imagen {ruta}: {e}")
             return None
 
-#-------------------------------------------------------------------------------#
-# Punto de entrada de la aplicación
-#-------------------------------------------------------------------------------#
 if __name__ == "__main__":
-    app = HomeApp()
+    app = UnirseActividad()
     app.mainloop()
