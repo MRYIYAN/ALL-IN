@@ -6,7 +6,7 @@ import subprocess  # Para abrir otros archivos Python
 from tkinter import messagebox
 from PIL import Image, ImageTk  # Para cargar y mostrar imágenes
 import webbrowser  # Para abrir URLs en el navegador
-import subprocess  # Para abrir otros archivos Python
+import os  # Para trabajar con el sistema de archivos
 
 #-------------------------------------------------------------------------------#
 # Clase principal para la ventana Home
@@ -14,7 +14,7 @@ import subprocess  # Para abrir otros archivos Python
 class HomeApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        #------------------------------------------------- ------------------------------#
+        #-------------------------------------------------------------------------------#
         # Configuración de la ventana
         #-------------------------------------------------------------------------------#
         self.title("ALL-IN V1.0 - Inicio")
@@ -40,7 +40,13 @@ class HomeApp(tk.Tk):
         #-------------------------------------------------------------------------------#
         self.area_actividades = tk.Frame(self, bg="#f0f0f0")
         self.area_actividades.pack(pady=10)
-        self.actividades = ["Actividad 1", "Actividad 2", "Actividad 3", "Actividad 4", "Actividad 5", "Actividad 6"]
+        
+        # Si existen actividades guardadas, se cargan; de lo contrario se usan los predeterminados
+        actividades_guardadas = self.cargar_actividades_guardadas()
+        if actividades_guardadas:
+            self.actividades = actividades_guardadas
+        else:
+            self.actividades = ["Basketball", "Soccer", "Tennis", "Running", "Swimming", "Cycling"]
         self.mostrar_actividades()
 
         #-------------------------------------------------------------------------------#
@@ -93,7 +99,7 @@ class HomeApp(tk.Tk):
         desplegable.grid(row=0, column=columna, padx=20, pady=10)
 
     #-------------------------------------------------------------------------------#
-    # Método para manejar eventos de los botones
+    # Método para manejar eventos de los botones de la navbar
     #-------------------------------------------------------------------------------#
     def al_hacer_clic(self, texto_boton):
         rutas = {
@@ -104,19 +110,17 @@ class HomeApp(tk.Tk):
             "Mapa": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mapa.py",
             "Mensajes": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mensajes.py"
         }
-        
         if texto_boton in rutas:
-            # Llamar a la función cerrar_y_abrir para cerrar la ventana actual y abrir la nueva
             self.cerrar_y_abrir(rutas[texto_boton])
         else:
             messagebox.showinfo(texto_boton, f"Has hecho clic en '{texto_boton}'.")
 
     #-------------------------------------------------------------------------------#
-    # Método para cerrar
+    # Método para cerrar y abrir otra ventana
     #-------------------------------------------------------------------------------#
     def cerrar_y_abrir(self, ruta):
-        self.destroy()  # Cierra la ventana actual
-        subprocess.Popen(["python", ruta], shell=True)  # Abre el nuevo archivo
+        self.destroy()
+        subprocess.Popen(["python", ruta], shell=True)
 
     #-------------------------------------------------------------------------------#
     # Método para mostrar la lista de actividades
@@ -156,9 +160,18 @@ class HomeApp(tk.Tk):
             print(f"Error cargando la imagen {ruta}: {e}")
             return None
 
-#-------------------------------------------------------------------------------#
-# Punto de entrada de la aplicación
-#-------------------------------------------------------------------------------#
+    #-------------------------------------------------------------------------------#
+    # Método para cargar las actividades guardadas (si existen)
+    #-------------------------------------------------------------------------------#
+    def cargar_actividades_guardadas(self):
+        ruta = "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/actividades_guardadas.txt"
+        if os.path.exists(ruta):
+            with open(ruta, "r") as f:
+                lineas = [linea.strip() for linea in f if linea.strip() != '']
+            return lineas
+        return None
+
 if __name__ == "__main__":
+    import os  # Asegurarse de importar os para verificar la existencia del archivo
     app = HomeApp()
     app.mainloop()
