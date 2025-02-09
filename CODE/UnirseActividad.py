@@ -167,10 +167,10 @@ class UnirseActividad(tk.Tk):
         actividad_seleccionada = self.seleccion.get()
         if actividad_seleccionada:
             # Guardar la actividad seleccionada (por ejemplo, en un archivo)
-            with open("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/actividades_guardadas.txt", "w") as f:
+            with open("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/actividades_guardadas.txt", "a") as f:
                 f.write(actividad_seleccionada + "\n")
             tk.messagebox.showinfo("Unirse", f"Te has unido a {actividad_seleccionada}")
-            self.destroy()
+            self.quit()
             subprocess.Popen(["python", "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py"], shell=True)
         else:
             tk.messagebox.showerror("Error", "No has seleccionado ninguna actividad.")

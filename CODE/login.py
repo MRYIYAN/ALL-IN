@@ -2,7 +2,7 @@
 # Imports necesarios para la funcionalidad del programa
 #-------------------------------------------------------------------------------#
 
-import tkinter as tk  # Importa la librería de Tkinter pip install Tkinter
+import tkinter as tk  # Importa la librería de Tkinter pip install tk
 import subprocess  # Para abrir otros archivos Python
 from PIL import Image, ImageTk  # Importa la librería PIL pip install pillow
 from tkinter import messagebox  # Importa la librería para ventanas emergentes
@@ -125,7 +125,7 @@ class AplicacionLogin(tk.Tk):
     # Cargar el archivo home.py cuando los datos son correctos
     #-------------------------------------------------------------------------------#
     def cargar_home(self):
-        self.destroy()  # Cierra la ventana de login
+        self.quit()  # Cierra la ventana de login
         
         # Cambia la ruta según donde esté ubicado home.py
         import os
@@ -133,7 +133,7 @@ class AplicacionLogin(tk.Tk):
         
         # Verificar si el archivo existe en la ruta
         if os.path.exists(ruta_home):
-            exec(open(ruta_home, encoding="utf-8").read()) # Ejecuta home.py
+            subprocess.Popen(["python", ruta_home], shell=True)
         else:
             messagebox.showerror("Error", "No se pudo encontrar el archivo home.py.")
         

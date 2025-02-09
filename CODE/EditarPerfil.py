@@ -2,6 +2,7 @@ import tkinter as tk
 import subprocess
 from PIL import Image, ImageTk
 import webbrowser
+import tkinter.messagebox as messagebox
 
 class EditarPerfil(tk.Tk):
     def __init__(self):

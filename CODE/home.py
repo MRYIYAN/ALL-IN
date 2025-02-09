@@ -119,7 +119,7 @@ class HomeApp(tk.Tk):
     # Método para cerrar y abrir otra ventana
     #-------------------------------------------------------------------------------#
     def cerrar_y_abrir(self, ruta):
-        self.destroy()
+        self.quit()
         subprocess.Popen(["python", ruta], shell=True)
 
     #-------------------------------------------------------------------------------#
