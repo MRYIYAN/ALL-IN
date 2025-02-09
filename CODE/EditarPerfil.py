@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------#
 # Importación de las librerías necesarias para el funcionamiento de la ventana
 #-------------------------------------------------------------------------------#
-import tkinter as tk
-import subprocess
-from PIL import Image, ImageTk
+import tkinter as tk 
+import subprocess 
+from PIL import Image, ImageTk 
 import webbrowser
-import tkinter.messagebox as messagebox
-import json
-import os
+import tkinter.messagebox as messagebox 
+import json 
+import os 
 #-------------------------------------------------------------------------------#
 # Clase principal para la ventana "Editar Perfil"
 #-------------------------------------------------------------------------------#

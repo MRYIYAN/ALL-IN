@@ -19,7 +19,7 @@ class MensajesApp(tk.Tk):
         self.title("ALL-IN V1.0 - Mensajes")
         self.geometry("640x600")  
         self.configure(bg="#f0f0f0")
-        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")  
+        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")  # Icono de la ventana
 
         #-------------------------------------------------------------------------------
         # Barra de navegación
