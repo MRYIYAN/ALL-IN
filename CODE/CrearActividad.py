@@ -1,11 +1,11 @@
 #-------------------------------------------------------------------------------#
 # Imports necesarios para la funcionalidad de la ventana
 #-------------------------------------------------------------------------------#
-import tkinter as tk
-from tkinter import messagebox
-from tkcalendar import Calendar  # Necesitas instalar la librería tkcalendar para usar el widget de calendario
-import subprocess
-from PIL import Image, ImageTk
+import tkinter as tk 
+from tkinter import messagebox 
+from tkcalendar import Calendar  # instalar la librería tkcalendar para usar el widget de calendario pip install tkcalendar
+import subprocess 
+from PIL import Image, ImageTk # Instalar la librería PIL pip install pillow
 import webbrowser
 
 class CrearActividad(tk.Tk):

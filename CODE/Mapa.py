@@ -2,10 +2,10 @@
 # Importación de librerías necesarias
 # -------------------------------------------------------------------------------
 import tkinter as tk
-import tkintermapview
-import subprocess
+import tkintermapview # pip install tkintermapview
+import subprocess # pip install tkintermapview
 import webbrowser
-from tkinter import messagebox
+from tkinter import messagebox 
 from PIL import Image, ImageTk
 
 class Mapa(tk.Tk):
