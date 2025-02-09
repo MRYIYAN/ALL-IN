@@ -7,6 +7,7 @@ from tkcalendar import Calendar  # instalar la librería tkcalendar para usar el
 import subprocess 
 from PIL import Image, ImageTk # Instalar la librería PIL pip install pillow
 import webbrowser
+import os
 
 class CrearActividad(tk.Tk):
     def __init__(self):
@@ -17,7 +18,9 @@ class CrearActividad(tk.Tk):
         self.title("ALL-IN V1.0 - Crear Actividad")
         self.geometry("640x750")  # Aumenté la altura de la ventana
         self.configure(bg="#f0f0f0")
-        self.iconbitmap("assets/allin.ico")
+        script_dir = os.path.dirname(__file__)
+        icon_path = os.path.join(script_dir, "assets", "allin.ico")
+        self.iconbitmap(icon_path)
 
         #-------------------------------------------------------------------------------#
         # Barra de navegación (navbar)
@@ -197,8 +200,10 @@ class CrearActividad(tk.Tk):
     # Método para cerrar la ventana actual y abrir otra después de 1 segundo
     #-------------------------------------------------------------------------------#
     def cerrar_y_abrir(self, ruta):
+        script_dir = os.path.dirname(__file__)
+        ruta_completa = os.path.join(script_dir, ruta)  # Construción de la ruta completa
         def accion():
-            subprocess.Popen(["python", ruta], shell=True)
+            subprocess.Popen(["python", ruta_completa], shell=True)
             self.destroy()
         self.after(1000, accion)
 
@@ -206,13 +211,15 @@ class CrearActividad(tk.Tk):
     # Método para cargar imágenes con manejo de errores
     #-------------------------------------------------------------------------------#
     def cargar_imagen(self, ruta, tamaño):
+        script_dir = os.path.dirname(__file__)
+        ruta_completa = os.path.join(script_dir, ruta)  # Construyendo la ruta completa
         try:
-            imagen = Image.open(ruta)
+            imagen = Image.open(ruta_completa)
             imagen = imagen.convert("RGB")
             imagen = imagen.resize(tamaño, Image.Resampling.LANCZOS)
             return ImageTk.PhotoImage(imagen)
         except Exception as e:
-            print(f"Error cargando la imagen {ruta}: {e}")
+            print(f"Error cargando la imagen {ruta_completa}: {e}")
             return None
 
 if __name__ == "__main__":
