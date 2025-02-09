@@ -1,11 +1,15 @@
 #-------------------------------------------------------------------------------#
 # Imports necesarios para la funcionalidad de la ventana Unirse a Actividad
 #-------------------------------------------------------------------------------#
+import os
 import tkinter as tk
 import subprocess
 from PIL import Image, ImageTk
 import webbrowser
 from tkinter import messagebox
+
+# Definición de directorio base (directorio del script actual)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 #-------------------------------------------------------------------------------#
 # Clase principal para la ventana Unirse a Actividad
@@ -17,7 +21,7 @@ class UnirseActividad(tk.Tk):
         self.title("ALL-IN V1.0 - Unirse a Actividad")
         self.geometry("640x600")
         self.configure(bg="#f0f0f0")
-        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")
+        self.iconbitmap(os.path.join(BASE_DIR, "assets", "allin.ico"))
 
         # Barra de navegación (navbar)
         self.navbar = tk.Frame(self, bg="#333333")
@@ -37,16 +41,16 @@ class UnirseActividad(tk.Tk):
 
         # Lista de actividades (ejemplo con 10 actividades; ajusta las rutas de las imágenes según corresponda)
         self.lista_actividades = [
-            {"nombre": "Basketball", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad1.png"},
-            {"nombre": "Soccer", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad2.png"},
-            {"nombre": "Tennis", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad3.png"},
-            {"nombre": "Running", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad4.png"},
-            {"nombre": "Swimming", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad5.png"},
-            {"nombre": "Cycling", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad6.png"},
-            {"nombre": "Yoga", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad7.png"},
-            {"nombre": "Boxing", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad8.png"},
-            {"nombre": "Baseball", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad9.png"},
-            {"nombre": "Volleyball", "imagen": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/actividad10.png"}
+            {"nombre": "Basketball", "imagen": os.path.join("assets", "actividad1.png")},
+            {"nombre": "Soccer", "imagen": os.path.join("assets", "actividad2.png")},
+            {"nombre": "Tennis", "imagen": os.path.join("assets", "actividad3.png")},
+            {"nombre": "Running", "imagen": os.path.join("assets", "actividad4.png")},
+            {"nombre": "Swimming", "imagen": os.path.join("assets", "actividad5.png")},
+            {"nombre": "Cycling", "imagen": os.path.join("assets", "actividad6.png")},
+            {"nombre": "Yoga", "imagen": os.path.join("assets", "actividad7.png")},
+            {"nombre": "Boxing", "imagen": os.path.join("assets", "actividad8.png")},
+            {"nombre": "Baseball", "imagen": os.path.join("assets", "actividad9.png")},
+            {"nombre": "Volleyball", "imagen": os.path.join("assets", "actividad10.png")}
         ]
         self.listar_actividades()
 
@@ -72,7 +76,7 @@ class UnirseActividad(tk.Tk):
     # Método para crear la barra de navegación
     #-------------------------------------------------------------------------------#
     def crear_navbar(self):
-        imagen_allin = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.png", (50, 50))
+        imagen_allin = self.cargar_imagen(os.path.join("assets", "allin.png"), (50, 50))
         if imagen_allin:
             etiqueta_imagen = tk.Label(self.navbar, image=imagen_allin, bg="#333333")
             etiqueta_imagen.image = imagen_allin
@@ -106,12 +110,12 @@ class UnirseActividad(tk.Tk):
     #-------------------------------------------------------------------------------#
     def al_hacer_clic(self, texto_boton):
         rutas = {
-            "Inicio": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py",
-            "Editar perfil": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/EditarPerfil.py",
-            "Unirse a actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/UnirseActividad.py",
-            "Crear actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/CrearActividad.py",
-            "Mapa": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mapa.py",
-            "Mensajes": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mensajes.py"
+            "Inicio": os.path.join(BASE_DIR, "home.py"),
+            "Editar perfil": os.path.join(BASE_DIR, "EditarPerfil.py"),
+            "Unirse a actividad": os.path.join(BASE_DIR, "UnirseActividad.py"),
+            "Crear actividad": os.path.join(BASE_DIR, "CrearActividad.py"),
+            "Mapa": os.path.join(BASE_DIR, "Mapa.py"),
+            "Mensajes": os.path.join(BASE_DIR, "Mensajes.py")
         }
         if texto_boton in rutas:
             self.cerrar_y_abrir(rutas[texto_boton])
@@ -167,11 +171,13 @@ class UnirseActividad(tk.Tk):
         actividad_seleccionada = self.seleccion.get()
         if actividad_seleccionada:
             # Guardar la actividad seleccionada (por ejemplo, en un archivo)
-            with open("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/actividades_guardadas.txt", "a") as f:
+            archivo = os.path.join(BASE_DIR, "actividades_guardadas.txt")
+            with open(archivo, "a") as f:
                 f.write(actividad_seleccionada + "\n")
             tk.messagebox.showinfo("Unirse", f"Te has unido a {actividad_seleccionada}")
             self.quit()
-            subprocess.Popen(["python", "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py"], shell=True)
+            ruta_home = os.path.join(BASE_DIR, "home.py")
+            subprocess.Popen(["python", ruta_home], shell=True)
         else:
             tk.messagebox.showerror("Error", "No has seleccionado ninguna actividad.")
 
@@ -181,7 +187,8 @@ class UnirseActividad(tk.Tk):
     def cargar_iconos_redes(self):
         iconos = ["facebook.png", "twitter.png", "instagram.png"]
         for icono in iconos:
-            img = self.cargar_imagen(f"C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/{icono}", (25, 25))
+            ruta_icono = os.path.join("assets", icono)
+            img = self.cargar_imagen(ruta_icono, (25, 25))
             if img:
                 etiqueta = tk.Label(self.iconos_redes, image=img, bg="#FFA500")
                 etiqueta.image = img
@@ -198,7 +205,8 @@ class UnirseActividad(tk.Tk):
     #-------------------------------------------------------------------------------#
     def cargar_imagen(self, ruta, tamaño):
         try:
-            imagen = Image.open(ruta)
+            ruta_completa = os.path.join(BASE_DIR, ruta)
+            imagen = Image.open(ruta_completa)
             imagen = imagen.convert("RGB")
             imagen = imagen.resize(tamaño, Image.Resampling.LANCZOS)
             return ImageTk.PhotoImage(imagen)

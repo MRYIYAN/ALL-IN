@@ -17,7 +17,7 @@ class CrearActividad(tk.Tk):
         self.title("ALL-IN V1.0 - Crear Actividad")
         self.geometry("640x750")  # Aumenté la altura de la ventana
         self.configure(bg="#f0f0f0")
-        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")
+        self.iconbitmap("assets/allin.ico")
 
         #-------------------------------------------------------------------------------#
         # Barra de navegación (navbar)
@@ -128,7 +128,7 @@ class CrearActividad(tk.Tk):
     # Método para crear la barra de navegación
     #-------------------------------------------------------------------------------#
     def crear_navbar(self):
-        imagen_allin = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.png", (50, 50))
+        imagen_allin = self.cargar_imagen("assets/allin.png", (50, 50))
         if imagen_allin:
             etiqueta_imagen = tk.Label(self.navbar, image=imagen_allin, bg="#333333")
             etiqueta_imagen.image = imagen_allin
@@ -163,12 +163,12 @@ class CrearActividad(tk.Tk):
     #-------------------------------------------------------------------------------#
     def al_hacer_clic(self, texto_boton):
         rutas = {
-            "Inicio": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py",
-            "Editar perfil": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/EditarPerfil.py",
-            "Unirse a actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/UnirseActividad.py",
-            "Crear actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/CrearActividad.py",
-            "Mapa": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mapa.py",
-            "Mensajes": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mensajes.py"
+            "Inicio": "home.py",
+            "Editar perfil": "EditarPerfil.py",
+            "Unirse a actividad": "UnirseActividad.py",
+            "Crear actividad": "CrearActividad.py",
+            "Mapa": "Mapa.py",
+            "Mensajes": "Mensajes.py"
         }
         if texto_boton in rutas:
             self.cerrar_y_abrir(rutas[texto_boton])
@@ -181,7 +181,7 @@ class CrearActividad(tk.Tk):
     def cargar_iconos_redes(self):
         iconos = ["facebook.png", "twitter.png", "instagram.png"]
         for icono in iconos:
-            img = self.cargar_imagen(f"C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/{icono}", (25, 25))
+            img = self.cargar_imagen(f"assets/{icono}", (25, 25))
             if img:
                 etiqueta = tk.Label(self.iconos_redes, image=img, bg="#FFA500")
                 etiqueta.image = img

@@ -21,7 +21,7 @@ class HomeApp(tk.Tk):
         self.title("ALL-IN V1.0 - Inicio")  # Título de la ventana
         self.geometry("640x600")  # Tamaño de la ventana
         self.configure(bg="#f0f0f0")  # Color de fondo de la ventana
-        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")  # Ícono de la ventana
+        self.iconbitmap(os.path.join(os.path.dirname(__file__), "assets/allin.ico"))  # Ícono de la ventana
         
         #-------------------------------------------------------------------------------#
         # Barra de navegación (navbar)
@@ -70,7 +70,7 @@ class HomeApp(tk.Tk):
     # Método para crear la barra de navegación 
     #-------------------------------------------------------------------------------#
     def crear_navbar(self):
-        imagen_allin = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.png", (50, 50))  # Cargamos la imagen del logo
+        imagen_allin = self.cargar_imagen(os.path.join(os.path.dirname(__file__), "assets/allin.png"), (50, 50))  # Cargamos la imagen del logo
         if imagen_allin:
             etiqueta_imagen = tk.Label(self.navbar, image=imagen_allin, bg="#333333")  # Mostramos la imagen en la navbar
             etiqueta_imagen.image = imagen_allin  # Guardamos la referencia de la imagen
@@ -104,12 +104,12 @@ class HomeApp(tk.Tk):
     #-------------------------------------------------------------------------------#
     def al_hacer_clic(self, texto_boton):
         rutas = {
-            "Inicio": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py",
-            "Editar perfil": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/EditarPerfil.py",
-            "Unirse a actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/UnirseActividad.py",
-            "Crear actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/CrearActividad.py",
-            "Mapa": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mapa.py",
-            "Mensajes": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mensajes.py"
+            "Inicio": os.path.join(os.path.dirname(__file__), "home.py"),
+            "Editar perfil": os.path.join(os.path.dirname(__file__), "EditarPerfil.py"),
+            "Unirse a actividad": os.path.join(os.path.dirname(__file__), "UnirseActividad.py"),
+            "Crear actividad": os.path.join(os.path.dirname(__file__), "CrearActividad.py"),
+            "Mapa": os.path.join(os.path.dirname(__file__), "Mapa.py"),
+            "Mensajes": os.path.join(os.path.dirname(__file__), "Mensajes.py")
         }
         if texto_boton in rutas:
             self.cerrar_y_abrir(rutas[texto_boton])  # Si el texto del botón coincide con alguna ruta, abrimos el archivo correspondiente
@@ -136,7 +136,7 @@ class HomeApp(tk.Tk):
     def cargar_iconos_redes(self):
         iconos = ["facebook.png", "twitter.png", "instagram.png"]  # Lista de iconos de redes sociales
         for icono in iconos:
-            img = self.cargar_imagen(f"C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/{icono}", (25, 25))  # Cargamos la imagen de cada icono
+            img = self.cargar_imagen(os.path.join(os.path.dirname(__file__), f"assets/{icono}"), (25, 25))  # Cargamos la imagen de cada icono
             if img:
                 etiqueta = tk.Label(self.iconos_redes, image=img, bg="#FFA500")  # Mostramos el icono
                 etiqueta.image = img  # Guardamos la referencia de la imagen
@@ -165,7 +165,7 @@ class HomeApp(tk.Tk):
     # Método para cargar las actividades guardadas (si existen)
     #-------------------------------------------------------------------------------#
     def cargar_actividades_guardadas(self):
-        ruta = "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/actividades_guardadas.txt"  # Ruta del archivo de actividades guardadas
+        ruta = os.path.join(os.path.dirname(__file__), "actividades_guardadas.txt")  # Ruta relativa del archivo de actividades guardadas
         if os.path.exists(ruta):  # Si el archivo existe
             with open(ruta, "r") as f:
                 lineas = [linea.strip() for linea in f if linea.strip() != '']  # Leemos las líneas y eliminamos las vacías

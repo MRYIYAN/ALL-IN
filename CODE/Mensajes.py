@@ -19,7 +19,7 @@ class MensajesApp(tk.Tk):
         self.title("ALL-IN V1.0 - Mensajes")
         self.geometry("640x600")  
         self.configure(bg="#f0f0f0")
-        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")  # Icono de la ventana
+        self.iconbitmap(os.path.join(os.path.dirname(__file__), "assets/allin.ico"))  # Icono de la ventana
 
         #-------------------------------------------------------------------------------
         # Barra de navegación
@@ -84,7 +84,7 @@ class MensajesApp(tk.Tk):
         #-------------------------------------------------------------------------------
         # Crear la barra de navegación
         #-------------------------------------------------------------------------------
-        imagen_allin = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.png", (50, 50))
+        imagen_allin = self.cargar_imagen(os.path.join(os.path.dirname(__file__), "assets/allin.png"), (50, 50))
         if imagen_allin:
             etiqueta_imagen = tk.Label(self.navbar, image=imagen_allin, bg="#333333")
             etiqueta_imagen.image = imagen_allin
@@ -118,12 +118,12 @@ class MensajesApp(tk.Tk):
         # Acciones al hacer clic en un botón de la barra de navegación
         #-------------------------------------------------------------------------------
         rutas = {
-            "Inicio": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py",
-            "Editar perfil": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/EditarPerfil.py",
-            "Unirse a actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/UnirseActividad.py",
-            "Crear actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/CrearActividad.py",
-            "Mapa": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mapa.py",
-            "Mensajes": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mensajes.py"
+            "Inicio": os.path.join(os.path.dirname(__file__), "home.py"),
+            "Editar perfil": os.path.join(os.path.dirname(__file__), "EditarPerfil.py"),
+            "Unirse a actividad": os.path.join(os.path.dirname(__file__), "UnirseActividad.py"),
+            "Crear actividad": os.path.join(os.path.dirname(__file__), "CrearActividad.py"),
+            "Mapa": os.path.join(os.path.dirname(__file__), "Mapa.py"),
+            "Mensajes": os.path.join(os.path.dirname(__file__), "Mensajes.py")
         }
         if texto_boton in rutas:
             self.cerrar_y_abrir(rutas[texto_boton])
@@ -232,7 +232,7 @@ class MensajesApp(tk.Tk):
         #-------------------------------------------------------------------------------
         iconos = ["facebook.png", "twitter.png", "instagram.png"]
         for icono in iconos:
-            img = self.cargar_imagen(f"C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/{icono}", (25, 25))
+            img = self.cargar_imagen(os.path.join(os.path.dirname(__file__), f"assets/{icono}"), (25, 25))
             if img:
                 etiqueta = tk.Label(self.iconos_redes, image=img, bg="#FFA500")
                 etiqueta.image = img

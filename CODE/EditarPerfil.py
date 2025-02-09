@@ -26,7 +26,7 @@ class EditarPerfil(tk.Tk):
         self.title("ALL-IN V1.0 - Editar Perfil")  # Título de la ventana
         self.geometry("640x600")  # Tamaño de la ventana
         self.configure(bg="#f0f0f0")  # Color de fondo de la ventana
-        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")  # Ícono de la ventana
+        self.iconbitmap(os.path.join(os.path.dirname(__file__), "assets/allin.ico"))  # Ícono de la ventana
 
         #-------------------------------------------------------------------------------#
         # Frame principal que contendrá todo el contenido menos el footer
@@ -98,7 +98,7 @@ class EditarPerfil(tk.Tk):
     # Método para crear la barra de navegación
     #-------------------------------------------------------------------------------#
     def crear_navbar(self):
-        imagen_allin = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.png", (50, 50))
+        imagen_allin = self.cargar_imagen(os.path.join(os.path.dirname(__file__), "assets/allin.png"), (50, 50))
         if imagen_allin:
             etiqueta_imagen = tk.Label(self.navbar, image=imagen_allin, bg="#333333")
             etiqueta_imagen.image = imagen_allin
@@ -133,12 +133,12 @@ class EditarPerfil(tk.Tk):
     #-------------------------------------------------------------------------------#
     def al_hacer_clic(self, texto_boton):
         rutas = {
-            "Inicio": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py",
-            "Editar perfil": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/EditarPerfil.py",
-            "Unirse a actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/UnirseActividad.py",
-            "Crear actividad": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/CrearActividad.py",
-            "Mapa": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mapa.py",
-            "Mensajes": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/Mensajes.py"
+            "Inicio": os.path.join(os.path.dirname(__file__), "home.py"),
+            "Editar perfil": os.path.join(os.path.dirname(__file__), "EditarPerfil.py"),
+            "Unirse a actividad": os.path.join(os.path.dirname(__file__), "UnirseActividad.py"),
+            "Crear actividad": os.path.join(os.path.dirname(__file__), "CrearActividad.py"),
+            "Mapa": os.path.join(os.path.dirname(__file__), "Mapa.py"),
+            "Mensajes": os.path.join(os.path.dirname(__file__), "Mensajes.py")
         }
         if texto_boton in rutas:
             self.cerrar_y_abrir(rutas[texto_boton])
@@ -151,7 +151,7 @@ class EditarPerfil(tk.Tk):
     def cargar_iconos_redes(self):
         iconos = ["facebook.png", "twitter.png", "instagram.png"]
         for icono in iconos:
-            img = self.cargar_imagen(f"C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/{icono}", (25, 25))
+            img = self.cargar_imagen(os.path.join(os.path.dirname(__file__), f"assets/{icono}"), (25, 25))
             if img:
                 etiqueta = tk.Label(self.iconos_redes, image=img, bg="#FFA500")
                 etiqueta.image = img
@@ -190,6 +190,7 @@ class EditarPerfil(tk.Tk):
     #-------------------------------------------------------------------------------#
     def cargar_imagen_usuario(self):
         imagen_usuario = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/user1.png", (150, 150))
+        imagen_usuario = self.cargar_imagen(os.path.join(os.path.dirname(__file__), "assets/user1.png"), (150, 150))
         if imagen_usuario:
             etiqueta_imagen_usuario = tk.Label(self.area_perfil, image=imagen_usuario, bg="#f0f0f0")
             etiqueta_imagen_usuario.image = imagen_usuario
@@ -229,7 +230,7 @@ class EditarPerfil(tk.Tk):
     #-------------------------------------------------------------------------------#
     def guardar_selecciones_guardadas(self):
         try:
-            ruta_guardado = "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/selecciones_guardadas.json"
+            ruta_guardado = os.path.join(os.path.dirname(__file__), "selecciones_guardadas.json")
             with open(ruta_guardado, "w") as archivo:
                 json.dump(self.selecciones_guardadas, archivo)
         except Exception as e:
@@ -239,7 +240,7 @@ class EditarPerfil(tk.Tk):
     # Método para cargar las selecciones guardadas desde un archivo JSON
     #-------------------------------------------------------------------------------#
     def cargar_selecciones_guardadas(self):
-        ruta_guardado = "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/selecciones_guardadas.json"
+        ruta_guardado = os.path.join(os.path.dirname(__file__), "selecciones_guardadas.json")
         if os.path.exists(ruta_guardado):
             try:
                 with open(ruta_guardado, "r") as archivo:

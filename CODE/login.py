@@ -4,6 +4,7 @@
 
 import tkinter as tk  # Importa la librería de Tkinter pip install tk
 import subprocess  # Para abrir otros archivos Python
+import os  # Para manejar rutas de archivos
 from PIL import Image, ImageTk  # Importa la librería PIL pip install pillow
 from tkinter import messagebox  # Importa la librería para ventanas emergentes
 
@@ -26,13 +27,15 @@ class AplicacionLogin(tk.Tk):
         #-------------------------------------------------------------------------------#
         # Cargar el icono de la ventana 
         #-------------------------------------------------------------------------------#
-        self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")  
+        ruta_icono = os.path.join(os.path.dirname(__file__), "assets", "allin.ico")
+        self.iconbitmap(ruta_icono)
 
         #-------------------------------------------------------------------------------#
         # Carga de la imagen de usuario 
         #-------------------------------------------------------------------------------#
 
-        self.imagen_usuario = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/user1.png", (150, 150))
+        ruta_imagen_usuario = os.path.join(os.path.dirname(__file__), "assets", "user1.png")
+        self.imagen_usuario = self.cargar_imagen(ruta_imagen_usuario, (150, 150))
 
         #-------------------------------------------------------------------------------#
         # Creación de la interfaz gráfica
@@ -128,8 +131,7 @@ class AplicacionLogin(tk.Tk):
         self.quit()  # Cierra la ventana de login
         
         # Cambia la ruta según donde esté ubicado home.py
-        import os
-        ruta_home = "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py"
+        ruta_home = os.path.join(os.path.dirname(__file__), "home.py")
         
         # Verificar si el archivo existe en la ruta
         if os.path.exists(ruta_home):
