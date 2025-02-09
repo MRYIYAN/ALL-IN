@@ -1,3 +1,6 @@
+# -------------------------------------------------------------------------------#
+# Imports necesarios para la funcionalidad de la ventana
+# -------------------------------------------------------------------------------#
 import tkinter as tk
 import subprocess  # Para abrir otros archivos Python
 from tkinter import messagebox
@@ -75,7 +78,7 @@ class MensajesApp(tk.Tk):
         #-------------------------------------------------------------------------------
         enlace_web = tk.Label(self.footer, text="Visita nuestra web", fg="white", bg="#FFA500", cursor="hand2", font=("Arial", 10, "underline"))
         enlace_web.pack(side="right", padx=10, pady=5)
-        enlace_web.bind("<Button-1>", lambda e: self.abrir_pagina("https://tupagina.com"))
+        enlace_web.bind("<Button-1>", lambda e: self.abrir_pagina("https://dev-h3ctor23.github.io/"))
 
     def crear_navbar(self):
         #-------------------------------------------------------------------------------
@@ -148,20 +151,69 @@ class MensajesApp(tk.Tk):
         self.chat_area.insert(tk.END, f"Tú -> {mensaje}\n")
         self.chat_area.yview(tk.END)
 
+        # Respuestas ampliadas para hacerlo más funcional
         respuestas = {
-            "hola": "Bot -> ¡Hola! ¿Cómo puedo ayudarte?",
-            "como estas": "Bot -> Estoy bien, ¿y tú?",
-            "gracias": "Bot -> ¡De nada!",
-            "adios": "Bot -> ¡Hasta luego!",
-            "quien eres": "Bot -> Soy un asistente virtual creado para ayudarte.",
-            "que hora es": "Bot -> La hora actual es: " + self.obtener_hora_actual(),
-            "tu nombre": "Bot -> Mi nombre es Bot, ¿y el tuyo?",
-            "ayuda": "Bot -> ¿En qué puedo ayudarte? Puedo responder preguntas o darte información.",
-            "que haces": "Bot -> Estoy aquí para ayudarte con cualquier pregunta que tengas.",
-            "como puedo contactarte": "Bot -> Siempre estaré disponible aquí para ti.",
-            "tienes redes sociales": "Bot -> No tengo, pero te puedo dirigir a nuestras redes sociales."
-        }
-
+        # Variaciones de saludos
+        "hola": "Bot -> ¡Hola! ¿Cómo puedo ayudarte?",
+        "buenos dias": "Bot -> ¡Buenos días! ¿Cómo estás?",
+        "buenas tardes": "Bot -> ¡Buenas tardes! ¿Qué tal tu día?",
+        "buenas noches": "Bot -> ¡Buenas noches! ¿Todo bien?",
+        "que tal": "Bot -> ¡Todo bien! ¿Y tú?",
+        "hey": "Bot -> ¡Hey! ¿Cómo te puedo ayudar?",
+        "que onda": "Bot -> ¡Qué onda! ¿En qué te puedo ayudar?",
+        "hi": "Bot -> Hi! How can I assist you today?",
+        "saludos": "Bot -> ¡Saludos! ¿Cómo va todo?",
+        
+        # Variaciones de "cómo estás"
+        "como estas": "Bot -> Estoy bien, ¿y tú?",
+        "como te va": "Bot -> Me va genial, gracias por preguntar. ¿Y a ti?",
+        "que tal todo": "Bot -> Todo bien, ¿y tú? ¿Cómo va todo?",
+        "como te encuentras": "Bot -> Todo tranquilo por aquí, ¿y tú?",
+        
+        # Respuesta estándar
+        "gracias": "Bot -> ¡De nada! ¿En qué más te puedo ayudar?",
+        "adios": "Bot -> ¡Hasta luego! ¡Cuídate!",
+        "bye": "Bot -> Goodbye! Have a great day!",
+        "nos vemos": "Bot -> ¡Nos vemos pronto!",
+        
+        # Respuestas para obtener más información
+        "quien eres": "Bot -> Soy un asistente virtual creado para ayudarte. ¿En qué te puedo asistir?",
+        "que haces": "Bot -> Estoy aquí para responder tus preguntas y ayudarte en lo que necesites.",
+        "tu nombre": "Bot -> Mi nombre es Bot. ¿Y el tuyo?",
+        "como te llamas": "Bot -> Me llamo Bot, ¿cómo te llamas tú?",
+        
+        # Consultas de hora
+        "que hora es": "Bot -> La hora actual es: " + self.obtener_hora_actual(),
+        "hora actual": "Bot -> Son las " + self.obtener_hora_actual(),
+        "me dices la hora": "Bot -> Claro, la hora es: " + self.obtener_hora_actual(),
+        "que hora tienes": "Bot -> Tengo la hora: " + self.obtener_hora_actual(),
+        "hora": "Bot -> La hora en este momento es: " + self.obtener_hora_actual(),
+        
+        # Preguntas frecuentes
+        "ayuda": "Bot -> ¿En qué puedo ayudarte? Puedo responder preguntas o darte información.",
+        "que puedes hacer": "Bot -> Puedo responder preguntas, ofrecerte ayuda y guiarte en tus actividades.",
+        "como puedo contactarte": "Bot -> Siempre estaré disponible aquí para ti. ¡Solo escribe tu mensaje!",
+        "tienes redes sociales": "Bot -> No tengo, pero te puedo dirigir a nuestras redes sociales. ¿Te interesa?",
+        "donde te encuentro": "Bot -> Estoy aquí, en este chat. ¿En qué puedo ayudarte hoy?",
+        
+        # Respuestas humorísticas o curiosas
+        "cuantos años tienes": "Bot -> No tengo edad, soy solo un asistente virtual. ¿Tú cuántos años tienes?",
+        "quien es el mejor": "Bot -> ¡Tú eres el mejor! Siempre aquí para ayudarte.",
+        "cual es tu comida favorita": "Bot -> No como, pero me gusta pensar que los bits son mi comida favorita.",
+        "que opinas de los humanos": "Bot -> ¡Los humanos son geniales! Son los que me hacen funcionar.",
+        
+        # Respuestas diversas
+        "como puedo ayudarte": "Bot -> Puedes preguntarme cualquier cosa, ¡aquí estoy para lo que necesites!",
+        "estoy aburrido": "Bot -> ¡Vaya! ¿Por qué no pruebas hacer algo divertido? ¡Puedo recomendarte actividades!",
+        "quiero saber mas": "Bot -> Claro, ¿sobre qué te gustaría saber más?",
+        
+        # Respuestas para no entender algo
+        "": "Bot -> ¡Hola! Parece que no escribiste nada. ¿Cómo puedo ayudarte?",
+        "lo siento": "Bot -> No te preocupes, ¿qué más necesitas?",
+        "no entiendo": "Bot -> ¡No hay problema! Puedes preguntar lo que necesites.",
+        "no se": "Bot -> Si no sabes algo, ¡yo estoy aquí para ayudarte a encontrarlo!"
+}
+        
         respuesta = respuestas.get(mensaje, "Bot -> Lo siento, no entendí esa pregunta.")
         self.chat_area.insert(tk.END, f"{respuesta}\n")
         self.chat_area.config(state=tk.DISABLED)

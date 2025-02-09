@@ -95,7 +95,7 @@ class CrearActividad(tk.Tk):
         #-------------------------------------------------------------------------------#
         enlace_web = tk.Label(self.footer, text="Visita nuestra web", fg="white", bg="#FFA500", cursor="hand2", font=("Arial", 10, "underline"))
         enlace_web.pack(side="right", padx=10, pady=5)
-        enlace_web.bind("<Button-1>", lambda e: self.abrir_pagina("https://tupagina.com"))
+        enlace_web.bind("<Button-1>", lambda e: self.abrir_pagina("https://dev-h3ctor23.github.io/"))
 
     #-------------------------------------------------------------------------------#
     # Método para enviar el evento
