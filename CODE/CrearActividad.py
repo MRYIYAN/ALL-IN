@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import messagebox
+from tkcalendar import Calendar  # Necesitas instalar la librería tkcalendar para usar el widget de calendario
 import subprocess
 from PIL import Image, ImageTk
 import webbrowser
@@ -8,7 +10,7 @@ class CrearActividad(tk.Tk):
         super().__init__()
         # Configuración de la ventana
         self.title("ALL-IN V1.0 - Crear Actividad")
-        self.geometry("640x600")
+        self.geometry("640x750")  # Aumenté la altura de la ventana
         self.configure(bg="#f0f0f0")
         self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")
 
@@ -25,6 +27,35 @@ class CrearActividad(tk.Tk):
         self.area_actividades = tk.Frame(self, bg="#f0f0f0")
         self.area_actividades.pack(pady=10)
 
+        # Ingreso de actividad
+        self.actividad_label = tk.Label(self.area_actividades, text="Ingrese el nombre de la actividad:", font=("Arial", 12), bg="#f0f0f0")
+        self.actividad_label.pack(pady=5)
+        self.actividad_entry = tk.Entry(self.area_actividades, font=("Arial", 12), width=50)
+        self.actividad_entry.pack(pady=5)
+
+        # Selección de fecha
+        self.fecha_label = tk.Label(self.area_actividades, text="Selecciona la fecha y hora de la actividad:", font=("Arial", 12), bg="#f0f0f0")
+        self.fecha_label.pack(pady=5)
+        self.calendario = Calendar(self.area_actividades, selectmode='day', date_pattern='y-mm-dd', font=("Arial", 12))
+        self.calendario.pack(pady=5)
+
+        # Tipo de actividad
+        self.tipo_label = tk.Label(self.area_actividades, text="Selecciona el tipo de actividad:", font=("Arial", 12), bg="#f0f0f0")
+        self.tipo_label.pack(pady=5)
+        self.tipo_actividad = tk.StringVar()
+        self.tipo_menu = tk.OptionMenu(self.area_actividades, self.tipo_actividad, "Deporte", "Cultura", "Social", "Educativo")
+        self.tipo_menu.pack(pady=5)
+
+        # Descripción de la actividad
+        self.descripcion_label = tk.Label(self.area_actividades, text="Descripción de la actividad:", font=("Arial", 12), bg="#f0f0f0")
+        self.descripcion_label.pack(pady=5)
+        self.descripcion_text = tk.Text(self.area_actividades, font=("Arial", 12), height=4, width=50)
+        self.descripcion_text.pack(pady=5)
+
+        # Botón para enviar evento
+        self.boton_enviar = tk.Button(self.area_actividades, text="Enviar Evento", font=("Arial", 12, "bold"), bg="#28a745", command=self.enviar_evento)
+        self.boton_enviar.pack(pady=10)
+
         # Pie de página (footer)
         self.footer = tk.Frame(self, bg="#FFA500", height=50)
         self.footer.pack(fill="x", side="bottom", pady=0)
@@ -39,9 +70,22 @@ class CrearActividad(tk.Tk):
         enlace_web.pack(side="right", padx=10, pady=5)
         enlace_web.bind("<Button-1>", lambda e: self.abrir_pagina("https://tupagina.com"))
 
-        # Botón para navegar a otra pantalla, por ejemplo, "Inicio"
-        self.boton_inicio = tk.Button(self, text="Ir al inicio", command=lambda: self.cerrar_y_abrir("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py"))
-        self.boton_inicio.pack(pady=20)
+    def enviar_evento(self):
+        actividad = self.actividad_entry.get()
+        fecha = self.calendario.get_date()
+        tipo = self.tipo_actividad.get()
+        descripcion = self.descripcion_text.get("1.0", tk.END).strip()
+
+        if not actividad or not fecha or not tipo or not descripcion:
+            messagebox.showwarning("Campos incompletos", "Por favor, completa todos los campos.")
+            return
+
+        # Aquí puedes agregar código para guardar el evento en una base de datos o enviarlo a un servidor
+        messagebox.showinfo("Evento registrado", "GRACIAS POR CREAR UN EVENTO, Sera enviado hacia los moderadores para ser revisado. 🙂")
+
+        # Limpiar los campos después de enviar
+        self.actividad_entry.delete(0, tk.END)
+        self.descripcion_text.delete("1.0", tk.END)
 
     # Método para crear la barra de navegación
     def crear_navbar(self):

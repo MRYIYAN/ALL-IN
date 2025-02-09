@@ -32,7 +32,7 @@ class AplicacionLogin(tk.Tk):
         # Carga de la imagen de usuario 
         #-------------------------------------------------------------------------------#
 
-        self.imagen_usuario = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/user.png", (150, 150))
+        self.imagen_usuario = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/user1.png", (150, 150))
 
         #-------------------------------------------------------------------------------#
         # Creación de la interfaz gráfica
