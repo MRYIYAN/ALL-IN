@@ -1,3 +1,6 @@
+# -------------------------------------------------------------------------------#
+# Importación de librerías necesarias
+# -------------------------------------------------------------------------------
 import tkinter as tk
 import tkintermapview
 import subprocess
@@ -8,25 +11,35 @@ from PIL import Image, ImageTk
 class Mapa(tk.Tk):
     def __init__(self):
         super().__init__()
+        #-------------------------------------------------------------------------------
         # Configuración de la ventana
+        #-------------------------------------------------------------------------------
         self.title("ALL-IN V1.0 - Mapa de Actividades")
         self.geometry("640x600")
         self.configure(bg="#f0f0f0")
         self.iconbitmap("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.ico")
 
+        #-------------------------------------------------------------------------------
         # Barra de navegación (navbar)
+        #-------------------------------------------------------------------------------
         self.navbar = tk.Frame(self, bg="#333333")
         self.navbar.pack(fill="x", side="top", padx=0, pady=0)
         self.crear_navbar()
 
+        #-------------------------------------------------------------------------------
         # Título de la ventana
+        #-------------------------------------------------------------------------------
         encabezado = tk.Label(self, text="MAPA DE ACTIVIDADES", font=("Arial", 16, "bold"), bg="#f0f0f0", fg="#333333")
         encabezado.pack(pady=(10, 5))
 
-        # Contenido de la ventana
+        #-------------------------------------------------------------------------------
+        # Contenido de la ventana (mapa de actividades)
+        #-------------------------------------------------------------------------------
         self.mostrar_mapa()
 
+        #-------------------------------------------------------------------------------
         # Pie de página (footer)
+        #-------------------------------------------------------------------------------
         self.footer = tk.Frame(self, bg="#FFA500", height=50)
         self.footer.pack(fill="x", side="bottom", pady=0)
 
@@ -40,7 +53,9 @@ class Mapa(tk.Tk):
         enlace_web.pack(side="right", padx=10, pady=5)
         enlace_web.bind("<Button-1>", lambda e: self.abrir_pagina("https://tupagina.com"))
 
+    #-------------------------------------------------------------------------------
     # Método para crear la barra de navegación
+    #-------------------------------------------------------------------------------
     def crear_navbar(self):
         imagen_allin = self.cargar_imagen("C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/assets/allin.png", (50, 50))
         if imagen_allin:
@@ -53,12 +68,16 @@ class Mapa(tk.Tk):
         self.crear_boton("Mapa", 4)
         self.crear_boton("Mensajes", 5)
 
+    #-------------------------------------------------------------------------------
     # Método para crear botones de la navbar
+    #-------------------------------------------------------------------------------
     def crear_boton(self, texto, columna):
         boton = tk.Button(self.navbar, text=texto, font=("Arial", 12), fg="white", bg="#333333", relief="flat", command=lambda: self.al_hacer_clic(texto))
         boton.grid(row=0, column=columna, padx=20, pady=10)
 
+    #-------------------------------------------------------------------------------
     # Método para crear botones desplegables en la navbar
+    #-------------------------------------------------------------------------------
     def crear_boton_desplegable(self, texto, columna, opciones):
         desplegable = tk.Menubutton(self.navbar, text=texto, font=("Arial", 12), fg="white", bg="#333333", relief="flat")
         menu = tk.Menu(desplegable, tearoff=0, bg="#333333", fg="white")
@@ -67,7 +86,9 @@ class Mapa(tk.Tk):
         desplegable.config(menu=menu)
         desplegable.grid(row=0, column=columna, padx=20, pady=10)
 
+    #-------------------------------------------------------------------------------
     # Método para manejar eventos de los botones de la navbar
+    #-------------------------------------------------------------------------------
     def al_hacer_clic(self, texto_boton):
         rutas = {
             "Inicio": "C:/Users/ian00/Documents/GitHub/ALL-IN/CODE/home.py",
@@ -82,12 +103,16 @@ class Mapa(tk.Tk):
         else:
             tk.messagebox.showinfo(texto_boton, f"Has hecho clic en '{texto_boton}'.")
 
+    #-------------------------------------------------------------------------------
     # Método para cerrar y abrir otra ventana
+    #-------------------------------------------------------------------------------
     def cerrar_y_abrir(self, ruta):
         self.destroy()
         subprocess.Popen(["python", ruta], shell=True)
 
+    #-------------------------------------------------------------------------------
     # Método para mostrar el mapa de actividades
+    #-------------------------------------------------------------------------------
     def mostrar_mapa(self):
         # Crear el marco para el mapa
         mapa_frame = tk.Frame(self)
@@ -103,7 +128,9 @@ class Mapa(tk.Tk):
         # Agregar un marcador en el mapa en la ubicación de Madrid
         map_widget.set_marker(40.4168, -3.7038)
 
+    #-------------------------------------------------------------------------------
     # Método para cargar los iconos de redes sociales
+    #-------------------------------------------------------------------------------
     def cargar_iconos_redes(self):
         iconos = ["facebook.png", "twitter.png", "instagram.png"]
         for icono in iconos:
@@ -113,11 +140,15 @@ class Mapa(tk.Tk):
                 etiqueta.image = img
                 etiqueta.pack(side="left", padx=5)
 
+    #-------------------------------------------------------------------------------
     # Método para abrir una página web en el navegador
+    #-------------------------------------------------------------------------------
     def abrir_pagina(self, url):
         webbrowser.open(url)
 
+    #-------------------------------------------------------------------------------
     # Método para cargar imágenes con manejo de errores
+    #-------------------------------------------------------------------------------
     def cargar_imagen(self, ruta, tamaño):
         try:
             imagen = Image.open(ruta)
